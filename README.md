@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+# Project Name
+
+A brief description of your project, what it does, and its main purpose.
+
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Running the Project](#running-the-project)
+- [Project Structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
+
+---
+
+## Project Overview
+This project is a **Next.js** application with a **MongoDB** database, utilizing **Docker** and **Docker Compose** for easy setup and deployment. The app includes components for a learning management system (LMS) and features an API to interact with MongoDB for storing and retrieving course data.
+
+## Technologies Used
+- [Next.js](https://nextjs.org/) (React Framework)
+- [MongoDB](https://www.mongodb.com/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+---
 
 ## Getting Started
+These instructions will help you set up and run the project locally.
 
-First, run the development server:
+### Prerequisites
+- **Docker** and **Docker Compose** installed on your system
+- Node.js and Yarn (if running outside Docker for development)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Environment Variables
+The project uses environment variables to configure database connections and API URLs. Add these variables in `.env` files:
+
+- `.env.development` for local development
+- `.env.production` for production builds
+
+Here are the main variables:
+
+```plaintext
+# .env.development
+NEXT_PUBLIC_API_URL=http://localhost:3000
+NEXT_PUBLIC_MONGO_URI=mongodb://admin:password123@mongodb:27017/lms
+
+# .env.production
+NEXT_PUBLIC_API_URL=https://your-production-api.com
+NEXT_PUBLIC_MONGO_URI=mongodb://admin:password123@mongodb:27017/lms
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Note:** Replace the default MongoDB username and password (`admin:password123`) with your secure credentials.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Running the Project
 
-## Learn More
+### Using Docker Compose
+1. **Build and start the containers**:
+   ```bash
+   docker-compose up --build
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Access the application**:
+   - The application will be available at [http://localhost:3000](http://localhost:3000).
+   - MongoDB will run on port 27017.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Without Docker (For Development)
+1. Install dependencies:
+   ```bash
+   yarn install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Start the development server:
+   ```bash
+   yarn dev
+   ```
 
-## Deploy on Vercel
+### Project Structure
+- **components/** - Reusable UI components
+- **pages/** - Next.js pages and API routes
+- **public/** - Static assets (images, icons, etc.)
+- **mongo-init/** - MongoDB initialization scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Troubleshooting
+### Common Issues
+
+- **Docker Build Fails**: Check the Docker logs for specific error messages. Ensure your `.env` files are correctly configured and accessible.
+- **MongoDB Authentication**: Make sure your MongoDB URI includes the correct username and password. 
+
+### Helpful Commands
+- **Stop Containers**: `docker-compose down`
+- **Remove All Containers**: `docker rm -f $(docker ps -aq)`
+- **Rebuild Containers**: `docker-compose up --build`
